@@ -22,7 +22,7 @@ func (uploadDir UploadConfig) Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	file, header, err := r.FormFile("image")
+	file, header, err := r.FormFile("file")
 	if err != nil {
 		fmt.Fprintf(w, "Error At FormFile %s", err.Error())
 		return

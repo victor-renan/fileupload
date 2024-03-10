@@ -1,9 +1,18 @@
 # FileUpload
 
-Simple server for file upload
+Simple server for file upload only with Golang batteries
 
 # Routes
 
-- `/upload/`
+- GET `/uploads/:filename`
 
-Body: FormData('image')
+View a file
+
+- DELETE `/uploads/:filename`
+
+Deletes the given file from UPLOADS_DIR
+
+- PUT `/uploads/`
+    - Body: FormData('image')
+    
+Insert the given file
