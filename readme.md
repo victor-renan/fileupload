@@ -1,8 +1,9 @@
-# ImageUploads
+# FileUpload
 
-Simple server for image upload without any data storage
+Simple server for file upload
 
 # Routes
 
 - `/upload/`
-- `/serve/:urlimage`
+
+Body: FormData('image')
