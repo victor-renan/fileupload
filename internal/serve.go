@@ -12,7 +12,6 @@ type StaticConfig struct {
 	StaticDir string
 }
 
-
 func (sc StaticConfig) Serve(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == sc.Route {
 		fmt.Fprint(w, "Browse files typing the filename in the url")

@@ -13,16 +13,17 @@ import (
 type UploadConfig struct {
 	UploadDir string
 	MaxSize int64
+	FormDataField string
 }
 
-func (uploadDir UploadConfig) Upload(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseMultipartForm(uploadDir.MaxSize)
+func (uc UploadConfig) Upload(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseMultipartForm(uc.MaxSize)
 	if err != nil {
 		fmt.Fprintf(w, "Error At ParseMultipartForm %s", err.Error())
 		return
 	}
 
-	file, header, err := r.FormFile("file")
+	file, header, err := r.FormFile(uc.FormDataField)
 	if err != nil {
 		fmt.Fprintf(w, "Error At FormFile %s", err.Error())
 		return
@@ -46,7 +47,7 @@ func (uploadDir UploadConfig) Upload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fileName := fmt.Sprintf("%x.%s", hashedName, string(ext))
-	filePath := path.Join(uploadDir.UploadDir, fileName)
+	filePath := path.Join(uc.UploadDir, fileName)
 
 	err = os.WriteFile(filePath, data, 0777)
 	if err != nil {

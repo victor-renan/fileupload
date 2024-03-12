@@ -9,6 +9,7 @@ import (
 
 const PORT int = 3000
 const UPLOAD_PATH string = "uploads"
+const FORM_FIELD string = "file"
 const MAX_SIZE int64 = 3 * (2 >> 20)
 
 func main() {
@@ -20,6 +21,7 @@ func main() {
 			internal.UploadConfig{
 				UploadDir: UPLOAD_PATH,
 				MaxSize:   MAX_SIZE,
+				FormDataField: FORM_FIELD,
 			}.Upload(w, r)
 
 		case http.MethodDelete:
@@ -36,6 +38,8 @@ func main() {
 
 		}
 	})
+
+	log.Printf("Listening on http://localhost:%v", PORT)
 
 	err := http.ListenAndServe(fmt.Sprintf(":%v", PORT), nil)
 
